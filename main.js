@@ -45,6 +45,7 @@ function renderTasks() {
 
     // 編集機能
     listItem.querySelector(`#edit-${task.id}`).addEventListener("click", () => {
+      const editButton = listItem.querySelector(`#edit-${task.id}`);
       if (task.completed) {
         alert("完了済みのタスクは編集できません。")  // 完了済みタスクは編集不可
         return
@@ -54,9 +55,11 @@ function renderTasks() {
       editText.type = "text";
       editText.value = task.text;
       listItem.querySelector("label").replaceWith(editText);
+      editButton.textContent = "保存";
       // 編集を保存して再描画
       editText.addEventListener("blur", () => {
         task.text = editText.value.trim() || task.text;
+        editButton.textContent = "編集";
         renderTasks();
       });
     });
